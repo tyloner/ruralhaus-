@@ -1,0 +1,136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+    
+    /* Lighter rural aesthetic color palette */
+    --background: 40 30% 98%;
+    --foreground: 20 10% 30%;
+    
+    /* Lighter Earth tones */
+    --primary: 25 40% 65%;  /* Lighter brown #C4A484 */
+    --primary-foreground: 20 10% 20%;
+    
+    --secondary: 150 30% 65%; /* Lighter green #8FBC8F */
+    --secondary-foreground: 20 10% 20%;
+    
+    /* Lighter Ocean blue accent */
+    --accent: 210 40% 70%; /* Lighter blue #87CEEB */
+    --accent-foreground: 20 10% 20%;
+    
+    /* Lighter Neutrals */
+    --card: 40 30% 99%;
+    --card-foreground: 20 10% 30%;
+    --popover: 40 30% 99%;
+    --popover-foreground: 20 10% 30%;
+    --muted: 30 10% 95%;
+    --muted-foreground: 20 10% 50%;
+    --destructive: 0 84.2% 70.2%;
+    --destructive-foreground: 20 10% 20%;
+    --border: 30 15% 90%;
+    --input: 30 15% 90%;
+    --ring: 25 40% 65%;
+    
+    /* Lighter Chart colors */
+    --chart-1: 25 70% 70%;
+    --chart-2: 150 50% 60%;
+    --chart-3: 210 40% 70%;
+    --chart-4: 45 70% 80%;
+    --chart-5: 0 60% 70%;
+  }
+  
+  .dark {
+    --background: 20 10% 15%;
+    --foreground: 40 30% 90%;
+    
+    --primary: 25 30% 45%;
+    --primary-foreground: 40 30% 98%;
+    
+    --secondary: 150 30% 45%;
+    --secondary-foreground: 40 30% 98%;
+    
+    --accent: 210 40% 50%;
+    --accent-foreground: 40 30% 98%;
+    
+    --card: 20 10% 15%;
+    --card-foreground: 40 30% 90%;
+    --popover: 20 10% 15%;
+    --popover-foreground: 40 30% 90%;
+    --muted: 20 10% 25%;
+    --muted-foreground: 40 30% 70%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 40 30% 98%;
+    --border: 20 10% 25%;
+    --input: 20 10% 25%;
+    --ring: 25 30% 45%;
+    
+    --chart-1: 25 60% 40%;
+    --chart-2: 150 40% 30%;
+    --chart-3: 210 30% 40%;
+    --chart-4: 45 60% 50%;
+    --chart-5: 0 50% 40%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom classes for rural aesthetic */
+.hero-section {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/images/northern_spain_hero.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.property-card {
+  @apply overflow-hidden rounded-lg border border-border bg-card transition-all duration-300 hover:shadow-lg;
+}
+
+.property-card:hover {
+  transform: translateY(-5px);
+}
+
+.section-title {
+  @apply text-3xl md:text-4xl font-bold mb-6 text-primary;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: hsl(var(--primary));
+}
+
+.btn-primary {
+  @apply bg-primary text-primary-foreground hover:bg-primary/90 rounded-md px-4 py-2 transition-colors;
+}
+
+.btn-secondary {
+  @apply bg-secondary text-secondary-foreground hover:bg-secondary/90 rounded-md px-4 py-2 transition-colors;
+}
+
+.btn-outline {
+  @apply border border-primary text-primary hover:bg-primary hover:text-primary-foreground rounded-md px-4 py-2 transition-colors;
+}
