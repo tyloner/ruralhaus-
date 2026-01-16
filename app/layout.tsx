@@ -1,17 +1,13 @@
 import "./globals.css";
-import type { Metadata } from "next";
-import type { PropsWithChildren } from "react";
 
-export const metadata: Metadata = {
-  title: "RuralHaus",
-  description: "RuralHaus",
-};
-
-export default function RootLayout({ children }: PropsWithChildren) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body>{children}</body>
     </html>
   );
 }
-
