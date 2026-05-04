@@ -4,6 +4,7 @@ import ConceptSection from '@/components/ConceptSection'
 import RegionsSection from '@/components/RegionsSection'
 import HousesSection from '@/components/HousesSection'
 import PhilosophySection from '@/components/PhilosophySection'
+import FractionalCalculator from '@/components/FractionalCalculator'
 import ContactSection from '@/components/ContactSection'
 import Footer from '@/components/Footer'
 
@@ -17,6 +18,7 @@ export default function Home() {
         <RegionsSection />
         <HousesSection />
         <PhilosophySection />
+        <FractionalCalculator />
         <ContactSection />
       </main>
       <Footer />

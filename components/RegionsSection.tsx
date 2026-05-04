@@ -1,97 +1,104 @@
-const regions = [
+'use client'
+
+import { useLanguage } from '@/contexts/LanguageContext'
+import { TranslationKey } from '@/lib/translations'
+
+// Real photographs sourced from Wikimedia Commons (CC licensed)
+const REGION_IMAGES = {
+  gredos:
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Hoyos_del_Espino-panorama_Gredos.jpg/1200px-Hoyos_del_Espino-panorama_Gredos.jpg',
+  sierranorte:
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Sierra_Norte_1993_02.jpg/1200px-Sierra_Norte_1993_02.jpg',
+  guadarrama:
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Panor%C3%A1mica_de_Pe%C3%B1alara.jpg/1200px-Panor%C3%A1mica_de_Pe%C3%B1alara.jpg',
+  cantabria:
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/AtardecerVegaRedonda.jpg/1200px-AtardecerVegaRedonda.jpg',
+}
+
+const REGIONS: {
+  id: keyof typeof REGION_IMAGES
+  nameKey: TranslationKey
+  taglineKey: TranslationKey
+  distanceKey: TranslationKey
+  descKey: TranslationKey
+}[] = [
   {
     id: 'gredos',
-    name: 'Sierra de Gredos',
-    tagline: 'Granite peaks · Ancient villages · Wild silence',
-    distance: '2 hrs from Madrid',
-    description:
-      'The most dramatic of the central sierras. Ibex roam granite high country, medieval hamlets cling to hillsides, and the air carries the scent of cistus and thyme. Gredos is the furthest and the wildest.',
-    image:
-      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1400&q=80',
+    nameKey: 'regions.gredos.name',
+    taglineKey: 'regions.gredos.tagline',
+    distanceKey: 'regions.gredos.distance',
+    descKey: 'regions.gredos.desc',
   },
   {
-    id: 'sierra-norte',
-    name: 'Sierra Norte',
-    tagline: 'Oak dehesas · River valleys · Pastoral calm',
-    distance: '1.5 hrs from Madrid',
-    description:
-      'North of Madrid, where the city dissolves into rolling dehesas and river villages. Slower, quieter, and closer than you think. Landscapes shaped by centuries of pastoral life.',
-    image:
-      'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1400&q=80',
+    id: 'sierranorte',
+    nameKey: 'regions.sierranorte.name',
+    taglineKey: 'regions.sierranorte.tagline',
+    distanceKey: 'regions.sierranorte.distance',
+    descKey: 'regions.sierranorte.desc',
   },
   {
     id: 'guadarrama',
-    name: 'Sierra de Guadarrama',
-    tagline: 'Pine forests · Historic routes · Mountain refuges',
-    distance: '1 hr from Madrid',
-    description:
-      'The closest sierra to the capital. Pine-covered slopes, icy streams, and centuries of mountain culture. Declared a National Park in 2013 — one of the few large wild areas this near a European capital.',
-    image:
-      'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1400&q=80',
+    nameKey: 'regions.guadarrama.name',
+    taglineKey: 'regions.guadarrama.tagline',
+    distanceKey: 'regions.guadarrama.distance',
+    descKey: 'regions.guadarrama.desc',
   },
   {
-    id: 'cantabria-asturias',
-    name: 'Cantabria & Asturias',
-    tagline: 'Atlantic coast · Lush green mountains · Estuaries',
-    distance: 'Green Spain',
-    description:
-      'Where the mountains meet the Cantabrian Sea. Pre-Romanesque churches, fishing villages, estuaries where salt water meets fresh, and a landscape of extraordinary depth and green. A different Spain entirely.',
-    image:
-      'https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=1400&q=80',
+    id: 'cantabria',
+    nameKey: 'regions.cantabria.name',
+    taglineKey: 'regions.cantabria.tagline',
+    distanceKey: 'regions.cantabria.distance',
+    descKey: 'regions.cantabria.desc',
   },
 ]
 
 export default function RegionsSection() {
+  const { t } = useLanguage()
+  const h2Lines = t('regions.h2').split('\n')
+
   return (
     <section id="regiones" className="bg-ink">
-      {/* Header */}
       <div className="max-w-7xl mx-auto px-6 lg:px-24 pt-24 pb-12 lg:pt-32 lg:pb-16">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
-          <h2 className="font-serif font-light text-cream text-[clamp(2.5rem,5vw,5rem)] leading-[0.95]">
-            Las<br />Regiones
+          <h2 className="font-serif font-light text-cream leading-[0.95]" style={{ fontSize: 'clamp(2.5rem, 5vw, 5rem)' }}>
+            {h2Lines.map((line, i) => <span key={i} className="block">{line}</span>)}
           </h2>
-          <p className="text-stone text-[11px] tracking-[0.25em] uppercase">
-            Cuatro territorios distintos
-          </p>
+          <p className="text-stone text-[11px] tracking-[0.25em] uppercase">{t('regions.label')}</p>
         </div>
       </div>
 
-      {/* 2×2 image grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2">
-        {regions.map((region, i) => (
+        {REGIONS.map((region, i) => (
           <div key={region.id} className="relative group overflow-hidden" style={{ aspectRatio: '4/3' }}>
             <img
-              src={region.image}
-              alt={region.name}
+              src={REGION_IMAGES[region.id]}
+              alt={t(region.nameKey)}
               className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/75 via-ink/20 to-transparent" />
+            <div className="absolute inset-0 bg-ink/0 group-hover:bg-ink/25 transition-colors duration-500" />
 
-            {/* Base overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/20 to-transparent" />
-            {/* Hover overlay — lightens to reveal description */}
-            <div className="absolute inset-0 bg-ink/0 group-hover:bg-ink/30 transition-colors duration-500" />
-
-            {/* Large index number */}
             <div className="absolute top-6 right-6 lg:top-8 lg:right-8">
-              <span className="font-serif text-white/10 text-7xl lg:text-8xl font-light leading-none">
+              <span className="font-serif leading-none select-none" style={{ color: 'rgba(255,255,255,0.07)', fontSize: '5rem' }}>
                 {String(i + 1).padStart(2, '0')}
               </span>
             </div>
 
-            {/* Text content */}
             <div className="absolute inset-0 flex flex-col justify-end p-8 lg:p-10">
               <p className="text-white/50 text-[10px] tracking-[0.35em] uppercase mb-2 lg:mb-3">
-                {region.distance}
+                {t(region.distanceKey)}
               </p>
               <h3 className="font-serif font-light text-white text-2xl lg:text-3xl mb-2">
-                {region.name}
+                {t(region.nameKey)}
               </h3>
-              <p className="text-white/50 text-xs italic mb-0 group-hover:mb-4 transition-all duration-500">
-                {region.tagline}
+              <p className="text-white/50 text-xs italic mb-0 group-hover:mb-3 transition-all duration-500">
+                {t(region.taglineKey)}
               </p>
-              {/* Description slides in on hover */}
-              <p className="text-white/0 group-hover:text-white/80 text-sm leading-relaxed max-w-sm transition-all duration-500 overflow-hidden max-h-0 group-hover:max-h-24">
-                {region.description}
+              <p className="text-sm leading-relaxed max-w-sm transition-all duration-500 overflow-hidden max-h-0 group-hover:max-h-28" style={{ color: 'rgba(255,255,255,0)' }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.8)')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0)')}
+              >
+                {t(region.descKey)}
               </p>
             </div>
           </div>

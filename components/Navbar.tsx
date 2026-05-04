@@ -1,16 +1,17 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
+import { useLanguage } from '@/contexts/LanguageContext'
 
-const navItems = [
-  { label: 'CONCEPTO', href: '#concepto' },
-  { label: 'REGIONES', href: '#regiones' },
-  { label: 'CASAS', href: '#casas' },
-  { label: 'FILOSOFÍA', href: '#filosofia' },
+const NAV_KEYS = [
+  { key: 'nav.concepto' as const, href: '#concepto' },
+  { key: 'nav.regiones' as const, href: '#regiones' },
+  { key: 'nav.casas' as const, href: '#casas' },
+  { key: 'nav.filosofia' as const, href: '#filosofia' },
 ]
 
 export default function Navbar() {
+  const { lang, toggle, t } = useLanguage()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -20,8 +21,9 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const textColor = scrolled || menuOpen ? 'text-ink' : 'text-white'
-  const borderColor = scrolled || menuOpen ? 'border-ink' : 'border-white'
+  const light = !scrolled && !menuOpen
+  const textColor = light ? 'text-white' : 'text-ink'
+  const borderColor = light ? 'border-white' : 'border-ink'
 
   return (
     <header
@@ -35,48 +37,66 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16 lg:h-20">
 
           {/* Logo */}
-          <Link
-            href="/"
-            className={`font-serif text-base tracking-[0.2em] uppercase transition-colors ${textColor}`}
-          >
+          <a href="/" className={`font-serif text-base tracking-[0.2em] uppercase transition-colors ${textColor}`}>
             RuralHaus
-          </Link>
+          </a>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-10">
-            {navItems.map(({ label, href }) => (
+          <nav className="hidden md:flex items-center gap-8 lg:gap-10">
+            {NAV_KEYS.map(({ key, href }) => (
               <a
-                key={label}
+                key={key}
                 href={href}
                 className={`text-[11px] tracking-[0.25em] hover:opacity-50 transition-opacity ${textColor}`}
               >
-                {label}
+                {t(key)}
               </a>
             ))}
             <a
               href="#contacto"
               className={`text-[11px] tracking-[0.25em] border px-5 py-2.5 hover:bg-ink hover:text-cream hover:border-ink transition-all duration-300 ${textColor} ${borderColor}`}
             >
-              CONTACTO
+              {t('nav.contacto')}
             </a>
+
+            {/* Language toggle */}
+            <button
+              onClick={toggle}
+              aria-label="Toggle language"
+              className={`flex items-center gap-1.5 text-[11px] tracking-[0.2em] transition-colors ${textColor}`}
+            >
+              <span className={lang === 'es' ? 'opacity-100' : 'opacity-30'}>ES</span>
+              <span className="opacity-20">·</span>
+              <span className={lang === 'en' ? 'opacity-100' : 'opacity-30'}>EN</span>
+            </button>
           </nav>
 
-          {/* Mobile toggle */}
-          <button
-            className={`md:hidden p-1 transition-colors ${textColor}`}
-            onClick={() => setMenuOpen((v) => !v)}
-            aria-label="Toggle menu"
-          >
-            {menuOpen ? (
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            )}
-          </button>
+          {/* Mobile controls */}
+          <div className="md:hidden flex items-center gap-4">
+            <button
+              onClick={toggle}
+              className={`text-[11px] tracking-[0.2em] transition-colors ${textColor}`}
+            >
+              <span className={lang === 'es' ? 'opacity-100' : 'opacity-40'}>ES</span>
+              <span className="opacity-20 mx-1">·</span>
+              <span className={lang === 'en' ? 'opacity-100' : 'opacity-40'}>EN</span>
+            </button>
+            <button
+              className={`p-1 transition-colors ${textColor}`}
+              onClick={() => setMenuOpen((v) => !v)}
+              aria-label="Toggle menu"
+            >
+              {menuOpen ? (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -84,14 +104,14 @@ export default function Navbar() {
       {menuOpen && (
         <nav className="md:hidden bg-cream border-t border-mist">
           <div className="px-6 py-8 flex flex-col gap-6">
-            {[...navItems, { label: 'CONTACTO', href: '#contacto' }].map(({ label, href }) => (
+            {[...NAV_KEYS, { key: 'nav.contacto' as const, href: '#contacto' }].map(({ key, href }) => (
               <a
-                key={label}
+                key={key}
                 href={href}
                 className="text-[11px] tracking-[0.25em] text-ink hover:text-sage transition-colors"
                 onClick={() => setMenuOpen(false)}
               >
-                {label}
+                {t(key)}
               </a>
             ))}
           </div>
