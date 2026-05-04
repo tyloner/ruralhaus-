@@ -3,16 +3,11 @@
 import { useLanguage } from '@/contexts/LanguageContext'
 import { TranslationKey } from '@/lib/translations'
 
-// Real photographs sourced from Wikimedia Commons (CC licensed)
 const REGION_IMAGES = {
-  gredos:
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Hoyos_del_Espino-panorama_Gredos.jpg/1200px-Hoyos_del_Espino-panorama_Gredos.jpg',
-  sierranorte:
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Sierra_Norte_1993_02.jpg/1200px-Sierra_Norte_1993_02.jpg',
-  guadarrama:
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Panor%C3%A1mica_de_Pe%C3%B1alara.jpg/1200px-Panor%C3%A1mica_de_Pe%C3%B1alara.jpg',
-  cantabria:
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/AtardecerVegaRedonda.jpg/1200px-AtardecerVegaRedonda.jpg',
+  gredos: '/images/region-gredos.jpg',
+  sierranorte: '/images/region-sierranorte.jpg',
+  guadarrama: '/images/region-guadarrama.jpg',
+  cantabria: '/images/region-cantabria.jpg',
 }
 
 const REGIONS: {
