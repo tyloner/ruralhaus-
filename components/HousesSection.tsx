@@ -3,32 +3,14 @@
 import { useLanguage } from '@/contexts/LanguageContext'
 import { TranslationKey } from '@/lib/translations'
 
-// Rural Spanish stone house photos — replace with actual property photos
-// by placing images in /public/images/ and updating the src values below
-const HOUSE_IMAGES = [
-  '/images/casa-la-escondida.jpg',
-  '/images/casa-de-la-ria.jpg',
-  '/images/casa-la-maderera.jpg',
-  '/images/casa-estrellas.jpg',
-  '/images/casa-caracol.jpg',
-]
-
-// Unsplash fallbacks (used when local images are not yet uploaded)
-const HOUSE_FALLBACKS = [
-  'https://images.unsplash.com/photo-1568454537842-d933259bb258?auto=format&fit=crop&w=1400&q=80',
-  'https://images.unsplash.com/photo-1527030280862-64139ffd8054?auto=format&fit=crop&w=1400&q=80',
-  'https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=1400&q=80',
-  'https://images.unsplash.com/photo-9vb8-Blq9co?auto=format&fit=crop&w=1400&q=80',
-  'https://images.unsplash.com/photo-QVjgNn8uPQw?auto=format&fit=crop&w=1400&q=80',
-]
-
+// Replace any src with the path to your own photo once uploaded to /public/images/
 const HOUSES: {
   nameKey: TranslationKey
   regionKey: TranslationKey
   sizeKey: TranslationKey
   landKey: TranslationKey
   descKey: TranslationKey
-  fallback: string
+  image: string
 }[] = [
   {
     nameKey: 'house.escondida.name',
@@ -36,7 +18,7 @@ const HOUSES: {
     sizeKey: 'house.escondida.size',
     landKey: 'house.escondida.land',
     descKey: 'house.escondida.desc',
-    fallback: 'https://images.unsplash.com/photo-DcVnX3vC56o?auto=format&fit=crop&w=1400&q=80',
+    image: 'https://images.unsplash.com/photo-1568454537842-d933259bb258?auto=format&fit=crop&w=1400&q=80',
   },
   {
     nameKey: 'house.ria.name',
@@ -44,7 +26,7 @@ const HOUSES: {
     sizeKey: 'house.ria.size',
     landKey: 'house.ria.land',
     descKey: 'house.ria.desc',
-    fallback: 'https://images.unsplash.com/photo-EDIUeDjQtbM?auto=format&fit=crop&w=1400&q=80',
+    image: 'https://images.unsplash.com/photo-1527030280862-64139ffd8054?auto=format&fit=crop&w=1400&q=80',
   },
   {
     nameKey: 'house.maderera.name',
@@ -52,7 +34,7 @@ const HOUSES: {
     sizeKey: 'house.maderera.size',
     landKey: 'house.maderera.land',
     descKey: 'house.maderera.desc',
-    fallback: 'https://images.unsplash.com/photo-cINlFrG1RJY?auto=format&fit=crop&w=1400&q=80',
+    image: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=1400&q=80',
   },
   {
     nameKey: 'house.estrellas.name',
@@ -60,7 +42,7 @@ const HOUSES: {
     sizeKey: 'house.estrellas.size',
     landKey: 'house.estrellas.land',
     descKey: 'house.estrellas.desc',
-    fallback: 'https://images.unsplash.com/photo-9vb8-Blq9co?auto=format&fit=crop&w=1400&q=80',
+    image: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1400&q=80',
   },
   {
     nameKey: 'house.caracol.name',
@@ -68,7 +50,7 @@ const HOUSES: {
     sizeKey: 'house.caracol.size',
     landKey: 'house.caracol.land',
     descKey: 'house.caracol.desc',
-    fallback: 'https://images.unsplash.com/photo-QVjgNn8uPQw?auto=format&fit=crop&w=1400&q=80',
+    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1400&q=80',
   },
 ]
 
@@ -90,18 +72,14 @@ export default function HousesSection() {
         <div className="space-y-28 lg:space-y-44">
           {HOUSES.map((house, i) => {
             const isEven = i % 2 === 0
-            const src = HOUSE_IMAGES[i]
-            const fallback = house.fallback
-
             return (
               <div key={house.nameKey} className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
 
                 <div className={`overflow-hidden ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
                   <div className="relative overflow-hidden" style={{ aspectRatio: '4/3' }}>
                     <img
-                      src={src}
+                      src={house.image}
                       alt={t(house.nameKey)}
-                      onError={(e) => { (e.currentTarget as HTMLImageElement).src = fallback }}
                       className="w-full h-full object-cover hover:scale-[1.04] transition-transform duration-700 ease-out"
                     />
                   </div>

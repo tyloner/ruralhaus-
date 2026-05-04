@@ -27,8 +27,8 @@ export default function ContactSection() {
             <div className="space-y-3 pt-8 border-t border-mist">
               <div className="flex items-center gap-3">
                 <span className="text-[10px] tracking-[0.2em] text-stone uppercase w-20">{t('contact.email_label')}</span>
-                <a href="mailto:hello@ruralhaus.co" className="text-ink text-sm hover:text-sage transition-colors">
-                  hello@ruralhaus.co
+                <a href="mailto:casita@ruralhaus.co" className="text-ink text-sm hover:text-sage transition-colors">
+                  casita@ruralhaus.co
                 </a>
               </div>
               <div className="flex items-center gap-3">
@@ -38,7 +38,7 @@ export default function ContactSection() {
             </div>
           </div>
 
-          <form action="mailto:hello@ruralhaus.co" method="POST" encType="text/plain" className="space-y-8">
+          <form action="mailto:casita@ruralhaus.co" method="POST" encType="text/plain" className="space-y-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               <div>
                 <label className="text-[10px] tracking-[0.25em] text-stone uppercase block mb-3">{t('contact.name')}</label>

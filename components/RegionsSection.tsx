@@ -94,10 +94,7 @@ export default function RegionsSection() {
               <p className="text-white/50 text-xs italic mb-0 group-hover:mb-3 transition-all duration-500">
                 {t(region.taglineKey)}
               </p>
-              <p className="text-sm leading-relaxed max-w-sm transition-all duration-500 overflow-hidden max-h-0 group-hover:max-h-28" style={{ color: 'rgba(255,255,255,0)' }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.8)')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0)')}
-              >
+              <p className="text-sm leading-relaxed max-w-sm transition-all duration-500 overflow-hidden max-h-0 group-hover:max-h-32 text-white/0 group-hover:text-white/80">
                 {t(region.descKey)}
               </p>
             </div>

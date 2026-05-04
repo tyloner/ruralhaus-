@@ -40,7 +40,7 @@ export default function Footer() {
               {t('footer.contact_title')}
             </p>
             <ul className="space-y-2.5">
-              <li><a href="mailto:hello@ruralhaus.co" className="text-stone text-xs hover:text-cream transition-colors">hello@ruralhaus.co</a></li>
+              <li><a href="mailto:casita@ruralhaus.co" className="text-stone text-xs hover:text-cream transition-colors">casita@ruralhaus.co</a></li>
               <li><a href="#" className="text-stone text-xs hover:text-cream transition-colors">Instagram</a></li>
             </ul>
           </div>
