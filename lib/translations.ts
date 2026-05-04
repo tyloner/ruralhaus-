@@ -99,8 +99,9 @@ export const translations = {
     // Calculator
     'calc.label': 'Inversión',
     'calc.h2': 'Propiedad\nFraccionada.',
-    'calc.sub': 'Calcula tu participación en una casa RuralHaus. Elige propiedad, fracción y horizonte de inversión para ver tu retorno proyectado.',
-    'calc.property': 'Propiedad',
+    'calc.sub': 'Introduce el valor de la casa, elige tu fracción y horizonte de inversión para ver tu retorno proyectado.',
+    'calc.property': 'Valor de la propiedad',
+    'calc.price_hint': 'Introduce el precio estimado de la propiedad',
     'calc.fraction': 'Tu fracción',
     'calc.appreciation': 'Revalorización anual',
     'calc.yield': 'Rentabilidad por alquiler',
@@ -123,7 +124,7 @@ export const translations = {
     'contact.region': 'Región de interés',
     'contact.region_placeholder': 'Seleccionar región...',
     'contact.message': 'Mensaje',
-    'contact.message_placeholder': '¿Qué tipo de estancia buscas?',
+    'contact.message_placeholder': 'Cuéntanos sobre tu interés...',
     'contact.submit': 'Enviar consulta',
     'contact.name_placeholder': 'Tu nombre',
 
@@ -234,8 +235,9 @@ export const translations = {
     // Calculator
     'calc.label': 'Investment',
     'calc.h2': 'Fractional\nOwnership.',
-    'calc.sub': 'Calculate your stake in a RuralHaus property. Choose property, fraction and investment horizon to see your projected return.',
-    'calc.property': 'Property',
+    'calc.sub': 'Enter the property value, choose your fraction and investment horizon to see your projected return.',
+    'calc.property': 'Property value',
+    'calc.price_hint': 'Enter the estimated property price',
     'calc.fraction': 'Your fraction',
     'calc.appreciation': 'Annual appreciation',
     'calc.yield': 'Rental yield',
@@ -258,7 +260,7 @@ export const translations = {
     'contact.region': 'Region of interest',
     'contact.region_placeholder': 'Select a region...',
     'contact.message': 'Message',
-    'contact.message_placeholder': 'What kind of stay are you looking for?',
+    'contact.message_placeholder': 'Tell us about your interest...',
     'contact.submit': 'Send enquiry',
     'contact.name_placeholder': 'Your name',
 

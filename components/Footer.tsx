@@ -41,7 +41,7 @@ export default function Footer() {
             </p>
             <ul className="space-y-2.5">
               <li><a href="mailto:casita@ruralhaus.co" className="text-stone text-xs hover:text-cream transition-colors">casita@ruralhaus.co</a></li>
-              <li><a href="#" className="text-stone text-xs hover:text-cream transition-colors">Instagram</a></li>
+              <li><a href="https://instagram.com/rural.haus" className="text-stone text-xs hover:text-cream transition-colors">@rural.haus</a></li>
             </ul>
           </div>
         </div>

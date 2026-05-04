@@ -33,7 +33,7 @@ export default function ContactSection() {
               </div>
               <div className="flex items-center gap-3">
                 <span className="text-[10px] tracking-[0.2em] text-stone uppercase w-20">{t('contact.instagram_label')}</span>
-                <a href="#" className="text-ink text-sm hover:text-sage transition-colors">@ruralhaus.co</a>
+                <a href="https://instagram.com/rural.haus" className="text-ink text-sm hover:text-sage transition-colors">@rural.haus</a>
               </div>
             </div>
           </div>

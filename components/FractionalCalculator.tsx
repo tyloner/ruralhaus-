@@ -3,14 +3,6 @@
 import { useState, useMemo } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 
-const PROPERTIES = [
-  { name: 'Casa La Escondida', price: 350000 },
-  { name: 'Casa de la Ría', price: 120000 },
-  { name: 'Casa La Maderera', price: 320000 },
-  { name: 'Casa Estrellas', price: 250000 },
-  { name: 'Casa Caracol', price: 130000 },
-]
-
 const FRACTIONS = [
   { label: '1/10', value: 0.1 },
   { label: '1/8', value: 0.125 },
@@ -46,16 +38,16 @@ function fmt(n: number, currency = true): string {
 export default function FractionalCalculator() {
   const { t } = useLanguage()
 
-  const [propertyIdx, setPropertyIdx] = useState(0)
+  const [priceInput, setPriceInput] = useState('250000')
   const [fractionIdx, setFractionIdx] = useState(2) // 1/4 default
-  const [appreciation, setAppreciation] = useState(7) // % per year
-  const [rentalYield, setRentalYield] = useState(5) // % per year
-  const [horizon, setHorizon] = useState(5) // years
+  const [appreciation, setAppreciation] = useState(7)
+  const [rentalYield, setRentalYield] = useState(5)
+  const [horizon, setHorizon] = useState(5)
 
   const h2Lines = t('calc.h2').split('\n')
 
   const results = useMemo(() => {
-    const price = PROPERTIES[propertyIdx].price
+    const price = Math.max(0, parseInt(priceInput.replace(/\D/g, ''), 10) || 0)
     const fraction = FRACTIONS[fractionIdx].value
     const appRate = appreciation / 100
     const yieldRate = rentalYield / 100
@@ -65,10 +57,10 @@ export default function FractionalCalculator() {
     const terminalValue = investment * Math.pow(1 + appRate, horizon)
     const capitalGain = terminalValue - investment
     const totalReturn = annualIncome * horizon + capitalGain
-    const irr = calcIRR(investment, annualIncome, terminalValue, horizon)
+    const irr = investment > 0 ? calcIRR(investment, annualIncome, terminalValue, horizon) : 0
 
     return { investment, annualIncome, capitalGain, totalReturn, irr }
-  }, [propertyIdx, fractionIdx, appreciation, rentalYield, horizon])
+  }, [priceInput, fractionIdx, appreciation, rentalYield, horizon])
 
   const sliderClass =
     'w-full h-px bg-white/10 rounded appearance-none cursor-pointer accent-sage [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-cream [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:cursor-pointer'
@@ -77,7 +69,6 @@ export default function FractionalCalculator() {
     <section id="calculadora" className="bg-ink py-28 lg:py-44 border-t border-white/5">
       <div className="max-w-7xl mx-auto px-6 lg:px-24">
 
-        {/* Header */}
         <div className="mb-16 lg:mb-20">
           <p className="text-[11px] tracking-[0.35em] text-sage uppercase mb-6">{t('calc.label')}</p>
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
@@ -93,27 +84,24 @@ export default function FractionalCalculator() {
           {/* ── Inputs ── */}
           <div className="space-y-10">
 
-            {/* Property selector */}
+            {/* Property price input */}
             <div>
               <p className="text-[10px] tracking-[0.25em] text-stone uppercase mb-4">{t('calc.property')}</p>
-              <div className="space-y-2">
-                {PROPERTIES.map((p, i) => (
-                  <button
-                    key={p.name}
-                    onClick={() => setPropertyIdx(i)}
-                    className={`w-full text-left px-4 py-3 border transition-all duration-200 flex justify-between items-center text-sm ${
-                      propertyIdx === i
-                        ? 'border-cream/40 bg-white/5 text-cream'
-                        : 'border-white/10 text-stone hover:border-white/20 hover:text-cream/70'
-                    }`}
-                  >
-                    <span>{p.name}</span>
-                    <span className={`font-serif text-base ${propertyIdx === i ? 'text-cream' : 'text-stone/60'}`}>
-                      €{p.price.toLocaleString('es-ES')}
-                    </span>
-                  </button>
-                ))}
+              <div className="relative">
+                <span className="absolute left-0 top-1/2 -translate-y-1/2 font-serif text-cream text-2xl pointer-events-none">€</span>
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  value={priceInput}
+                  onChange={(e) => {
+                    const raw = e.target.value.replace(/\D/g, '')
+                    setPriceInput(raw)
+                  }}
+                  placeholder="250000"
+                  className="w-full pl-7 border-b border-white/20 bg-transparent py-2.5 font-serif text-cream text-2xl placeholder:text-stone/30 focus:outline-none focus:border-white/50 transition-colors"
+                />
               </div>
+              <p className="text-[10px] text-stone/40 mt-2">{t('calc.price_hint')}</p>
             </div>
 
             {/* Fraction */}
@@ -185,7 +173,6 @@ export default function FractionalCalculator() {
           {/* ── Results ── */}
           <div className="flex flex-col justify-between">
             <div className="border border-white/10 p-8 lg:p-10 space-y-0">
-
               {[
                 { label: t('calc.your_investment'), value: fmt(results.investment), primary: true },
                 { label: t('calc.annual_income'), value: fmt(results.annualIncome), primary: false },
@@ -195,12 +182,14 @@ export default function FractionalCalculator() {
               ].map((row, idx, arr) => (
                 <div
                   key={row.label}
-                  className={`py-6 flex justify-between items-end ${idx < arr.length - 1 ? 'border-b border-white/8' : ''}`}
+                  className={`py-6 flex justify-between items-end ${idx < arr.length - 1 ? 'border-b' : ''}`}
                   style={{ borderColor: idx < arr.length - 1 ? 'rgba(255,255,255,0.08)' : undefined }}
                 >
                   <p className="text-[10px] tracking-[0.2em] text-stone uppercase">{row.label}</p>
-                  <p className={`font-serif font-light ${row.primary ? 'text-cream' : 'text-cream/80'}`}
-                     style={{ fontSize: row.primary ? '2.5rem' : '1.75rem' }}>
+                  <p
+                    className={`font-serif font-light ${row.primary ? 'text-cream' : 'text-cream/80'}`}
+                    style={{ fontSize: row.primary ? '2.5rem' : '1.75rem' }}
+                  >
                     {row.value}
                   </p>
                 </div>
