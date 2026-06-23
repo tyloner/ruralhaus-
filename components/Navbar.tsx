@@ -3,115 +3,68 @@
 import { useState, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 
-const NAV_KEYS = [
+const NAV_LINKS = [
   { key: 'nav.concepto' as const, href: '#concepto' },
   { key: 'nav.regiones' as const, href: '#regiones' },
   { key: 'nav.producto' as const, href: '#producto' },
-  { key: 'nav.casas' as const, href: '#casas' },
   { key: 'nav.filosofia' as const, href: '#filosofia' },
 ]
 
 export default function Navbar() {
   const { lang, toggle, t } = useLanguage()
-  const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-
-  const light = !scrolled && !menuOpen
-  const textColor = light ? 'text-white' : 'text-ink'
-  const borderColor = light ? 'border-white' : 'border-ink'
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [menuOpen])
 
   return (
-    <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
-        scrolled || menuOpen
-          ? 'bg-cream/95 backdrop-blur-sm border-b border-mist'
-          : 'bg-transparent'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="flex items-center justify-between h-16 lg:h-20">
+    <header className="fixed top-0 inset-x-0 z-50 bg-cream/97 backdrop-blur-sm border-b border-stone/10">
+      <div className="max-w-7xl mx-auto px-8 lg:px-20">
+        <div className="flex items-center justify-between h-14 lg:h-[60px]">
 
-          {/* Logo */}
-          <a href="/" className={`font-serif text-base tracking-[0.2em] uppercase transition-colors ${textColor}`}>
+          <a href="/" className="font-serif text-ink text-[13px] tracking-[0.22em] uppercase">
             RuralHaus
           </a>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-8 lg:gap-10">
-            {NAV_KEYS.map(({ key, href }) => (
-              <a
-                key={key}
-                href={href}
-                className={`text-[11px] tracking-[0.25em] hover:opacity-50 transition-opacity ${textColor}`}
-              >
+          <nav className="hidden md:flex items-center gap-9 lg:gap-11">
+            {NAV_LINKS.map(({ key, href }) => (
+              <a key={key} href={href}
+                className="text-[9px] tracking-[0.32em] uppercase text-stone hover:text-ink transition-colors duration-300">
                 {t(key)}
               </a>
             ))}
-            <a
-              href="#contacto"
-              className={`text-[11px] tracking-[0.25em] border px-5 py-2.5 hover:bg-ink hover:text-cream hover:border-ink transition-all duration-300 ${textColor} ${borderColor}`}
-            >
+            <a href="#contacto"
+              className="text-[9px] tracking-[0.32em] uppercase text-stone hover:text-ink transition-colors duration-300">
               {t('nav.contacto')}
             </a>
-
-            {/* Language toggle */}
-            <button
-              onClick={toggle}
-              aria-label="Toggle language"
-              className={`flex items-center gap-1.5 text-[11px] tracking-[0.2em] transition-colors ${textColor}`}
-            >
-              <span className={lang === 'es' ? 'opacity-100' : 'opacity-30'}>ES</span>
-              <span className="opacity-20">·</span>
-              <span className={lang === 'en' ? 'opacity-100' : 'opacity-30'}>EN</span>
-            </button>
           </nav>
 
-          {/* Mobile controls */}
-          <div className="md:hidden flex items-center gap-4">
-            <button
-              onClick={toggle}
-              className={`text-[11px] tracking-[0.2em] transition-colors ${textColor}`}
-            >
-              <span className={lang === 'es' ? 'opacity-100' : 'opacity-40'}>ES</span>
-              <span className="opacity-20 mx-1">·</span>
-              <span className={lang === 'en' ? 'opacity-100' : 'opacity-40'}>EN</span>
+          <div className="flex items-center gap-6">
+            <button onClick={toggle} aria-label="Toggle language"
+              className="text-[9px] tracking-[0.2em] text-stone hover:text-ink transition-colors duration-300 flex items-center gap-1">
+              <span className={lang === 'es' ? 'text-ink' : ''}>ES</span>
+              <span className="text-stone/30 mx-px">·</span>
+              <span className={lang === 'en' ? 'text-ink' : ''}>EN</span>
             </button>
-            <button
-              className={`p-1 transition-colors ${textColor}`}
-              onClick={() => setMenuOpen((v) => !v)}
-              aria-label="Toggle menu"
-            >
-              {menuOpen ? (
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              ) : (
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              )}
+            <button onClick={() => setMenuOpen(v => !v)} className="md:hidden text-ink p-1" aria-label="Toggle menu">
+              {menuOpen
+                ? <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12"/></svg>
+                : <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16"/></svg>
+              }
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile drawer */}
       {menuOpen && (
-        <nav className="md:hidden bg-cream border-t border-mist">
-          <div className="px-6 py-8 flex flex-col gap-6">
-            {[...NAV_KEYS, { key: 'nav.contacto' as const, href: '#contacto' }].map(({ key, href }) => (
-              <a
-                key={key}
-                href={href}
-                className="text-[11px] tracking-[0.25em] text-ink hover:text-sage transition-colors"
-                onClick={() => setMenuOpen(false)}
-              >
+        <nav className="md:hidden bg-cream border-t border-stone/10">
+          <div className="max-w-7xl mx-auto px-8 py-10 flex flex-col gap-7">
+            {[...NAV_LINKS, { key: 'nav.contacto' as const, href: '#contacto' }].map(({ key, href }) => (
+              <a key={key} href={href} onClick={() => setMenuOpen(false)}
+                className="text-[10px] tracking-[0.35em] uppercase text-stone hover:text-ink transition-colors">
                 {t(key)}
               </a>
             ))}

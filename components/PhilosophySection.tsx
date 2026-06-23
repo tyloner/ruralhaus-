@@ -13,38 +13,49 @@ export default function PhilosophySection() {
   ]
 
   return (
-    <section id="filosofia" className="bg-ink py-28 lg:py-44">
-      <div className="max-w-7xl mx-auto px-6 lg:px-24">
+    <section id="filosofia" className="bg-cream border-t border-stone/10 py-36 lg:py-56">
+      <div className="max-w-7xl mx-auto px-8 lg:px-20">
 
-        <div className="mb-20 lg:mb-28">
-          <p className="text-[11px] tracking-[0.35em] text-sage uppercase mb-6">{t('phil.label')}</p>
-          <h2 className="font-serif font-light text-cream leading-[0.95]" style={{ fontSize: 'clamp(2.5rem, 5vw, 5rem)' }}>
-            {h2Lines.map((line, i) => <span key={i} className="block">{line}</span>)}
-          </h2>
+        {/* Header */}
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-24 lg:mb-36">
+          <div>
+            <p className="text-[9px] tracking-[0.38em] uppercase text-stone/50 mb-10">
+              {t('phil.label')}
+            </p>
+            <h2
+              className="font-serif font-light text-ink leading-[0.9]"
+              style={{ fontSize: 'clamp(3rem, 6vw, 6rem)' }}
+            >
+              {h2Lines.map((line, i) => <span key={i} className="block">{line}</span>)}
+            </h2>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-6">
+        {/* Three pillars */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-px bg-stone/10">
           {pillars.map((v) => (
-            <div key={v.num} className="border-t border-white/10 pt-10">
-              <span className="font-serif font-light leading-none block mb-10 select-none" style={{ color: 'rgba(255,255,255,0.05)', fontSize: '5rem' }}>
+            <div key={v.num} className="bg-cream pt-8 pb-0 lg:pr-12">
+              <p className="font-serif font-light text-stone/20 leading-none mb-8 select-none"
+                style={{ fontSize: '3.5rem' }}>
                 {v.num}
-              </span>
-              <h3 className="font-serif font-light text-cream text-3xl mb-2">{v.title}</h3>
-              <p className="text-sage text-xs tracking-[0.15em] italic mb-6">{v.subtitle}</p>
-              <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.45)' }}>{v.body}</p>
+              </p>
+              <h3 className="font-serif font-light text-ink text-2xl lg:text-3xl mb-2">{v.title}</h3>
+              <p className="text-stone/50 text-[11px] tracking-[0.1em] italic mb-6">{v.subtitle}</p>
+              <p className="text-stone text-sm leading-relaxed">{v.body}</p>
             </div>
           ))}
         </div>
 
-        <div className="mt-28 lg:mt-36 overflow-hidden">
-          <img
-            src="https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=1920&q=80"
-            alt="Paisaje de la sierra española"
-            className="w-full object-cover"
-            style={{ maxHeight: '60vh' }}
-          />
-        </div>
+        {/* Full-bleed landscape image — below pillars, outside container */}
+      </div>
 
+      {/* Full-width image, edge to edge */}
+      <div className="mt-24 lg:mt-36 overflow-hidden" style={{ maxHeight: '55vh' }}>
+        <img
+          src="https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=1920&q=80"
+          alt="Paisaje de la sierra española"
+          className="w-full h-full object-cover"
+        />
       </div>
     </section>
   )
