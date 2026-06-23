@@ -2,6 +2,7 @@ import Navbar from '@/components/Navbar'
 import HeroSection from '@/components/HeroSection'
 import ConceptSection from '@/components/ConceptSection'
 import RegionsSection from '@/components/RegionsSection'
+import TracksSection from '@/components/TracksSection'
 import HousesSection from '@/components/HousesSection'
 import PhilosophySection from '@/components/PhilosophySection'
 import FractionalCalculator from '@/components/FractionalCalculator'
@@ -16,6 +17,7 @@ export default function Home() {
         <HeroSection />
         <ConceptSection />
         <RegionsSection />
+        <TracksSection />
         <HousesSection />
         <PhilosophySection />
         <FractionalCalculator />

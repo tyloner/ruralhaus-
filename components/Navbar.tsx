@@ -6,6 +6,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 const NAV_KEYS = [
   { key: 'nav.concepto' as const, href: '#concepto' },
   { key: 'nav.regiones' as const, href: '#regiones' },
+  { key: 'nav.producto' as const, href: '#producto' },
   { key: 'nav.casas' as const, href: '#casas' },
   { key: 'nav.filosofia' as const, href: '#filosofia' },
 ]
