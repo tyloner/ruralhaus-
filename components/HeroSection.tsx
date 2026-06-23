@@ -8,12 +8,15 @@ export default function HeroSection() {
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      <img
-        src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1920&q=80"
-        alt="Sierra española al amanecer"
+      <video
+        src="/videos/hero.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
         className="absolute inset-0 w-full h-full object-cover"
       />
-      <div className="absolute inset-0 bg-ink/18" />
+      <div className="absolute inset-0 bg-ink/22" />
 
       <div className="relative h-full flex flex-col justify-end px-8 lg:px-20 pb-16 lg:pb-24">
         <h1
@@ -29,7 +32,6 @@ export default function HeroSection() {
         </p>
       </div>
 
-      {/* Minimal scroll nudge */}
       <div className="absolute bottom-8 right-8 lg:right-20 hidden lg:block">
         <span className="text-white/25 text-[8px] tracking-[0.38em] uppercase" style={{ writingMode: 'vertical-rl' }}>
           Scroll
